@@ -9,7 +9,7 @@ TaskFlow allows users to manage tasks through a cyberpunk-inspired interface whi
 ## Live Demo
 
 Frontend:
-(Add Netlify URL after deployment)
+https://todoappvpoovarasu.netlify.app
 
 Backend API:
 (Add Render URL after deployment)
@@ -18,7 +18,7 @@ Backend API:
 
 ## GitHub Repository
 
-(Add repository link)
+https://github.com/PoovarasuV/taskflow
 
 ---
 
