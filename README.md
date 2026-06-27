@@ -148,6 +148,12 @@ node server.js
 Backend runs at:
 
 ```plaintext
+http://localhost:5000
+```
+
+Production:
+
+```plaintext
 https://poovarasutodoapp-backend.onrender.com
 ```
 
@@ -166,11 +172,14 @@ npm run dev
 Frontend runs at:
 
 ```plaintext
-https://poovarasutodoapp.netlify.app
+http://localhost:5174
 ```
 
----
+Production:
 
+```plaintext
+https://todoappvpoovarasu.netlify.app
+```
 # Pages
 
 ## Page 1 — Todo Dashboard
