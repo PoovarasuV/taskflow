@@ -1,22 +1,22 @@
 [
   {
-    "id": 1782544510582,
-    "title": "Internship Project",
-    "description": "",
-    "completed": false,
-    "priority": "High",
-    "dueDate": null,
-    "createdAt": "2026-06-27T07:15:10.582Z",
-    "updatedAt": "2026-06-27T07:40:13.945Z"
-  },
-  {
-    "id": 1782546001196,
-    "title": "Project completion",
+    "id": 1782551636198,
+    "title": "Resume Updation",
     "description": "",
     "completed": true,
+    "priority": "High",
+    "dueDate": null,
+    "createdAt": "2026-06-27T09:13:56.198Z",
+    "updatedAt": "2026-06-27T09:14:32.900Z"
+  },
+  {
+    "id": 1782551668001,
+    "title": "Digital Assignment Upload",
+    "description": "",
+    "completed": false,
     "priority": "Medium",
     "dueDate": null,
-    "createdAt": "2026-06-27T07:40:01.196Z",
-    "updatedAt": "2026-06-27T07:40:07.045Z"
+    "createdAt": "2026-06-27T09:14:28.001Z",
+    "updatedAt": "2026-06-27T09:14:28.001Z"
   }
 ]
