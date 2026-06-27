@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+
 import {
-Link,
 useNavigate
 }
 from "react-router-dom";
@@ -22,6 +22,11 @@ setTodos
 const[
 title,
 setTitle
+]=useState("");
+
+const[
+description,
+setDescription
 ]=useState("");
 
 const[
@@ -53,23 +58,39 @@ load();
 
 },[]);
 
+
 async function addTodo(){
 
-if(!title.trim())
+if(
+!title.trim()
+)
 return;
 
 await api.post(
 "/todos",
 {
+
 title,
+
+description,
+
 priority
-});
+
+}
+);
 
 setTitle("");
+
+setDescription("");
+
+setPriority(
+"Medium"
+);
 
 load();
 
 }
+
 
 async function toggle(
 e,
@@ -80,16 +101,22 @@ completed
 e.stopPropagation();
 
 await api.put(
+
 `/todos/${id}`,
+
 {
+
 completed:
 !completed
+
 }
+
 );
 
 load();
 
 }
+
 
 async function del(
 e,
@@ -99,12 +126,15 @@ id
 e.stopPropagation();
 
 await api.delete(
+
 `/todos/${id}`
+
 );
 
 load();
 
 }
+
 
 const filtered=
 
@@ -125,12 +155,14 @@ search
 
 );
 
+
 const done=
 
 todos.filter(
 t=>
 t.completed
 ).length;
+
 
 const progress=
 
@@ -147,6 +179,7 @@ todos.length)
 :
 
 0;
+
 
 return(
 
@@ -165,6 +198,7 @@ TASKFLOW
 
 </h1>
 
+
 <div
 className="subtitle"
 >
@@ -172,6 +206,8 @@ className="subtitle"
 TODO OPERATIONS TERMINAL
 
 </div>
+
+
 
 <div
 className="glass"
@@ -186,7 +222,8 @@ position:
 
 <input
 
-className="input"
+className=
+"input"
 
 placeholder=
 "Search Tasks"
@@ -204,6 +241,7 @@ e.target.value
 }
 
 />
+
 
 {
 
@@ -226,16 +264,19 @@ border:
 "1px solid cyan",
 
 borderRadius:
-12,
+14,
 
 padding:
-10,
+8,
 
 marginTop:
 -10,
 
 marginBottom:
-20
+18,
+
+boxShadow:
+"0 0 20px cyan"
 
 }}
 
@@ -255,7 +296,7 @@ item.id
 style={{
 
 padding:
-10,
+12,
 
 cursor:
 "pointer"
@@ -275,10 +316,10 @@ navigate(
 
 ⚡
 
+{" "}
+
 {
-
 item.title
-
 }
 
 </div>
@@ -293,9 +334,12 @@ item.title
 
 </div>
 
+
+
 <input
 
-className="input"
+className=
+"input"
 
 placeholder=
 "Enter Task"
@@ -314,9 +358,39 @@ e.target.value
 
 />
 
+
+
+<textarea
+
+className=
+"input"
+
+rows=
+"4"
+
+placeholder=
+"Task Description"
+
+value=
+{description}
+
+onChange={
+e=>
+
+setDescription(
+e.target.value
+)
+
+}
+
+></textarea>
+
+
+
 <select
 
-className="input"
+className=
+"input"
 
 value=
 {priority}
@@ -346,9 +420,12 @@ High
 
 </select>
 
+
+
 <button
 
-className="btn"
+className=
+"btn"
 
 onClick={
 addTodo
@@ -362,12 +439,17 @@ EXECUTE
 
 </div>
 
+
+
 <div
-className="stats"
+className=
+"stats"
 >
 
 <div
-className="stat">
+className=
+"stat"
+>
 
 TOTAL
 
@@ -379,8 +461,11 @@ todos.length
 
 </div>
 
+
 <div
-className="stat">
+className=
+"stat"
+>
 
 DONE
 
@@ -392,8 +477,11 @@ done
 
 </div>
 
+
 <div
-className="stat">
+className=
+"stat"
+>
 
 {
 progress.toFixed(
@@ -407,13 +495,17 @@ progress.toFixed(
 
 </div>
 
+
+
 <div
-className="progress"
+className=
+"progress"
 >
 
 <div
 
-className="fill"
+className=
+"fill"
 
 style={{
 width:
@@ -424,6 +516,8 @@ width:
 
 </div>
 
+
+
 {
 
 filtered.length===0
@@ -431,7 +525,8 @@ filtered.length===0
 ?
 
 <div
-className="empty"
+className=
+"empty"
 >
 
 NO TASKS FOUND
@@ -481,10 +576,17 @@ todo.title
 
 <br/>
 
+
 <div
 
 className={
-`badge ${todo.priority.toLowerCase()}`
+`badge ${
+
+todo.priority
+
+.toLowerCase()
+
+}`
 }
 
 >
@@ -493,9 +595,12 @@ className={
 todo.priority
 }
 
+{" "}
+
 PRIORITY
 
 </div>
+
 
 <div
 className=
@@ -518,7 +623,61 @@ todo.completed
 
 </div>
 
+
+{
+
+todo.description
+
+&&
+
+<div
+style={{
+marginTop:
+10,
+
+opacity:
+0.8
+}}
+>
+
+📝
+
+{" "}
+
+{
+
+todo.description
+
+.length>
+
+80
+
+?
+
+todo.description
+
+.slice(
+0,
+80
+)
+
++
+
+"..."
+
+:
+
+todo.description
+
+}
+
+</div>
+
+}
+
+
 <br/>
+
 
 <button
 
@@ -558,6 +717,8 @@ todo.completed
 
 </button>
 
+
+
 <button
 
 className=
@@ -593,8 +754,11 @@ DELETE
 
 }
 
+
+
 <div
-className="footer"
+className=
+"footer"
 >
 
 Developed By
