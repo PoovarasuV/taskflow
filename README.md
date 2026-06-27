@@ -129,7 +129,7 @@ API.md
 ## Clone Repository
 
 ```bash
-git clone YOUR_REPO_URL
+https://github.com/PoovarasuV/taskflow
 cd todo-app
 ```
 
@@ -148,7 +148,7 @@ node server.js
 Backend runs at:
 
 ```plaintext
-http://localhost:5000
+https://poovarasutodoapp-backend.onrender.com
 ```
 
 ---
@@ -166,7 +166,7 @@ npm run dev
 Frontend runs at:
 
 ```plaintext
-http://localhost:5174
+https://poovarasutodoapp.netlify.app
 ```
 
 ---
