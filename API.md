@@ -11,7 +11,7 @@ http://localhost:5000
 Production URL:
 
 ```plaintext
-(Add deployed backend URL)
+https://poovarasutodoapp-backend.onrender.com
 ```
 
 ---
