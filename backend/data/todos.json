@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1782544510582,
+    "title": "Internship Project",
+    "description": "",
+    "completed": false,
+    "priority": "High",
+    "dueDate": null,
+    "createdAt": "2026-06-27T07:15:10.582Z",
+    "updatedAt": "2026-06-27T07:40:13.945Z"
+  },
+  {
+    "id": 1782546001196,
+    "title": "Project completion",
+    "description": "",
+    "completed": true,
+    "priority": "Medium",
+    "dueDate": null,
+    "createdAt": "2026-06-27T07:40:01.196Z",
+    "updatedAt": "2026-06-27T07:40:07.045Z"
+  }
+]
