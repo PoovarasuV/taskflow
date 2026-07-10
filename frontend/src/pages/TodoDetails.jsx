@@ -1,286 +1,383 @@
 import {
-useSearchParams,
-Link
-}
-from "react-router-dom";
+  useSearchParams,
+  Link
+} from "react-router-dom";
 
 import {
-useEffect,
-useState
-}
-from "react";
+  useEffect,
+  useState
+} from "react";
 
 import api from "../services/api";
 
 import "../styles.css";
 
-function TodoDetails(){
+function TodoDetails() {
 
-const[
-params
-]=
-useSearchParams();
+  const [params] =
+    useSearchParams();
 
-const id=
-params.get(
-"id"
-);
+  const id =
+    params.get("id");
 
-const[
-todo,
-setTodo
-]=
-useState(
-null
-);
+  const [
+    todo,
+    setTodo
+  ] =
+    useState(null);
 
-async function load(){
+  const [
+    editMode,
+    setEditMode
+  ] =
+    useState(false);
 
-try{
+  const [
+    title,
+    setTitle
+  ] =
+    useState("");
 
-const res=
-await api.get(
-`/todos/${id}`
-);
+  const [
+    description,
+    setDescription
+  ] =
+    useState("");
 
-setTodo(
-res.data
-);
+  async function load() {
 
-}
+    try {
 
-catch(err){
+      const res =
+        await api.get(
+          `/todos/${id}`
+        );
 
-console.log(
-err
-);
+      setTodo(
+        res.data
+      );
 
-}
+      setTitle(
+        res.data.title
+      );
 
-}
+      setDescription(
+        res.data.description || ""
+      );
 
-useEffect(()=>{
+    }
 
-load();
+    catch (err) {
 
-},[]);
+      console.log(err);
 
-if(!todo){
+    }
 
-return(
+  }
 
-<div
-className="container"
->
+  useEffect(() => {
 
-<h1
-className="title"
-data-text="LOADING"
->
+    load();
 
-LOADING
+  }, []);
 
-<span></span>
+  async function saveChanges() {
 
-</h1>
+    await api.put(
+      `/todos/${id}`,
+      {
+        title,
+        description
+      }
+    );
 
-<div
-className="subtitle"
->
+    setEditMode(false);
 
-FETCHING TASK DATA
+    load();
 
-</div>
+  }
 
-</div>
+  if (!todo) {
 
-);
+    return (
 
-}
+      <div className="container">
 
-return(
+        <h1
+          className="title"
+          data-text="LOADING"
+        >
 
-<div
-className="container"
->
+          LOADING
 
-<h1
-className="title"
-data-text="DETAILS"
->
+          <span></span>
 
-DETAILS
+        </h1>
 
-<span></span>
+        <div className="subtitle">
 
-</h1>
+          FETCHING TASK DATA
 
-<div
-className="subtitle"
->
+        </div>
 
-TASK INFORMATION
+      </div>
 
-</div>
+    );
 
-<div
-className="glass"
->
+  }
 
-<h2>
+  return (
 
-{
-todo.title
-}
+    <div className="container">
 
-</h2>
+      <h1
+        className="title"
+        data-text="DETAILS"
+      >
 
-<hr/>
+        DETAILS
 
-<p>
+        <span></span>
 
-Description:
+      </h1>
 
-</p>
+      <div className="subtitle">
 
-<p>
+        TASK INFORMATION
 
-{
+      </div>
 
-todo.description
+      <div className="glass">
 
-||
+        {
 
-"No description"
+          editMode ?
 
-}
+            <input
+              className="input"
+              value={title}
+              onChange={
+                e =>
+                  setTitle(
+                    e.target.value
+                  )
+              }
+            />
 
-</p>
+            :
 
-<br/>
+            <h2>
 
-<div
-className={
-`badge ${
-(
-todo.priority
-||
-"medium"
-)
-.toLowerCase()
-}`
-}
->
+              {todo.title}
 
-{
+            </h2>
 
-todo.priority
+        }
 
-||
+        <hr />
 
-"Medium"
+        <p>
 
-}
+          Description:
 
-PRIORITY
+        </p>
 
-</div>
+        {
 
-<br/>
-<br/>
+          editMode ?
 
-<p>
+            <textarea
+              className="input"
+              rows="4"
+              value={description}
+              onChange={
+                e =>
+                  setDescription(
+                    e.target.value
+                  )
+              }
+            />
 
-Status:
+            :
 
-{
+            <p>
 
-todo.completed
+              {
 
-?
+                todo.description
 
-" ✅ Completed"
+                ||
 
-:
+                "No description"
 
-" ⏳ Pending"
+              }
 
-}
+            </p>
 
-</p>
+        }
 
-<p>
+        <br />
 
-Created:
+        <div
+          className={
+            `badge ${
 
-{
+              (
+                todo.priority
+                ||
+                "medium"
+              )
 
-new Date(
-todo.createdAt
-)
+                .toLowerCase()
 
-.toLocaleString()
+            }`
+          }
+        >
 
-}
+          {
 
-</p>
+            todo.priority
 
-<p>
+            ||
 
-Updated:
+            "Medium"
 
-{
+          }
 
-todo.updatedAt
+          {" "}
 
-?
+          PRIORITY
 
-new Date(
-todo.updatedAt
-)
+        </div>
 
-.toLocaleString()
+        <br />
+        <br />
 
-:
+        <p>
 
-"-"
+          Status:
 
-}
+          {
 
-</p>
+            todo.completed
 
-<br/>
+              ?
 
-<Link
-className="btn"
-to="/"
->
+              " ✅ Completed"
 
-← Back
+              :
 
-</Link>
+              " ⏳ Pending"
 
-</div>
+          }
 
-<div
-className="footer"
->
+        </p>
 
-Developed By
+        <p>
 
-{" "}
+          Created:
 
-<span>
+          {
 
-Poovarasu V
+            new Date(
+              todo.createdAt
+            ).toLocaleString()
 
-</span>
+          }
 
-</div>
+        </p>
 
-</div>
+        <p>
 
-);
+          Updated:
+
+          {
+
+            todo.updatedAt
+
+              ?
+
+              new Date(
+                todo.updatedAt
+              ).toLocaleString()
+
+              :
+
+              "-"
+
+          }
+
+        </p>
+
+        <br />
+
+        <Link
+          className="btn"
+          to="/"
+        >
+
+          ← Back
+
+        </Link>
+
+        {" "}
+
+        {
+
+          editMode ?
+
+            <button
+              className="btn"
+              onClick={
+                saveChanges
+              }
+              style={{
+                marginLeft: 12
+              }}
+            >
+
+              SAVE
+
+            </button>
+
+            :
+
+            <button
+              className="btn"
+              onClick={
+                () =>
+                  setEditMode(
+                    true
+                  )
+              }
+              style={{
+                marginLeft: 12
+              }}
+            >
+
+              EDIT
+
+            </button>
+
+        }
+
+      </div>
+
+      <div className="footer">
+
+        Developed By{" "}
+
+        <span>
+
+          Poovarasu V
+
+        </span>
+
+      </div>
+
+    </div>
+
+  );
 
 }
 
